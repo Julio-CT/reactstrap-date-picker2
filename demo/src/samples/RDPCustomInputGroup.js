@@ -6,8 +6,8 @@ import {
 } from 'reactstrap'
 import DatePicker from '../../../src'
 
-const CustomInputGroup = ({children}) =>
-  <div className="input-group cusom_input_group" style={{border: '5px solid aliceblue', borderRadius: '10px'}}>
+const CustomInputGroup = ({ children }) =>
+  <div className="input-group cusom_input_group" style={{ border: '5px solid aliceblue', borderRadius: '10px' }}>
     {children}
   </div>
 
@@ -19,21 +19,21 @@ const RDPCustomInputGroup = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Custom Input Group"}
       </Label>
       <DatePicker
-       id="xxx"
-        name         = {inputName}
-        instanceCount= {1}
-        value        = {value}
-        onChange     = {(v, f) => {setValue(v); setFmtValue(f);}}
-        customInputGroup = {<CustomInputGroup/>}
+        id="xxx"
+        name={inputName}
+        instanceCount={1}
+        value={value}
+        onChange={(v, f) => { setValue(v); setFmtValue(f); }}
+        customInputGroup={<CustomInputGroup />}
       />
       <FormText>
-        {value 
-         ? `Selected date is: ${value} (formatted: ${fmtValue})`
-         : 'No date selected'}
+        {value
+          ? `Selected date is: ${value} (formatted: ${fmtValue})`
+          : 'No date selected'}
       </FormText>
     </FormGroup>
   )

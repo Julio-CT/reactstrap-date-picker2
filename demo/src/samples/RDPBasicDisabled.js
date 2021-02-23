@@ -14,20 +14,20 @@ const RDPBasicDisabled = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Disabled"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {2}
-        value        = {value}
-        onChange     = {(v, f) => {setValue(v); setFmtValue(f);}}
-        disabled     = {true}
-      /> 
+        name={inputName}
+        instanceCount={2}
+        value={value}
+        onChange={(v, f) => { setValue(v); setFmtValue(f); }}
+        disabled={true}
+      />
       <FormText>
-        {value 
-         ? `Selected date is: ${value} (formatted: ${fmtValue})`
-         : 'No date selected'}
+        {value
+          ? `Selected date is: ${value} (formatted: ${fmtValue})`
+          : 'No date selected'}
       </FormText>
     </FormGroup>
   )

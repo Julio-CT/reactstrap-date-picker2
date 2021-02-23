@@ -13,19 +13,19 @@ const RDPSizeSmall = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Small"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {7}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        size         = "sm"
+        name={inputName}
+        instanceCount={7}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        size="sm"
       />
       <FormText>
         {"Small size input, size='sm'"}
-      </FormText>
+      </FormText>∫
     </FormGroup>
   )
 }

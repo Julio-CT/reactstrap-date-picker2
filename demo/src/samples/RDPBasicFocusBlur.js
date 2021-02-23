@@ -14,17 +14,17 @@ const RDPFocusBlur = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Focus / Blur"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {6}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        onBlur       = {() => setFocused(false)}
-        onFocus      = {() => setFocused(true)}
-      /> 
+        name={inputName}
+        instanceCount={6}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        onBlur={() => setFocused(false)}
+        onFocus={() => setFocused(true)}
+      />
       <FormText>
         {`Field is ${focused ? 'focused' : 'blurred'}`}
       </FormText>

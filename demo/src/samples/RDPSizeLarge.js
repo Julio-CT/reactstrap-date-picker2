@@ -13,15 +13,15 @@ const RDPSizeLarge = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Large"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {8}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        size         = "lg"
+        name={inputName}
+        instanceCount={8}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        size="lg"
       />
       <FormText>
         {"Large size input, size='lg'"}

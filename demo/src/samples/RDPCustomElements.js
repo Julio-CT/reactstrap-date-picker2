@@ -17,18 +17,18 @@ const RDPCustomElements = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Custom Elements"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {3}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        clearButtonElement   = {clearButtonElement}
-        nextButtonElement    = {nextButtonElement}
-        previousButtonElement= {previousButtonElement}           
-      /> 
+        name={inputName}
+        instanceCount={3}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        clearButtonElement={clearButtonElement}
+        nextButtonElement={nextButtonElement}
+        previousButtonElement={previousButtonElement}
+      />
       <FormText>
         {'Custom text/elements can be rendered on Clear and Prev/Next calendar buttons'}
       </FormText>

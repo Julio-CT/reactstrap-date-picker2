@@ -13,16 +13,16 @@ const RDPPlacementBottom = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Bottom"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {11}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        calendarPlacement    = "bottom"
-      /> 
+        name={inputName}
+        instanceCount={11}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        calendarPlacement="bottom"
+      />
       <FormText>
         {"calendarPlacement='bottom'"}
       </FormText>

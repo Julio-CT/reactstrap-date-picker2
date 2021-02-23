@@ -13,15 +13,15 @@ const RDPBasic = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Week starts on Monday"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {5}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        weekStartsOn = {1}
+        name={inputName}
+        instanceCount={5}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        weekStartsOn={1}
       />
       <FormText>
         {"Week starts on Monday, weekStartsOn=1"}
