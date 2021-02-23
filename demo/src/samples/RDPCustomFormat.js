@@ -16,20 +16,20 @@ const RDPCustomFormat = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Custom Format and Labels"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {4}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        dateFormat   = {"DD/MM/YYYY"}
-        dayLabels    = {spanishDayLabels}
-        monthLabels  = {spanishMonthLabels}
-      /> 
+        name={inputName}
+        instanceCount={4}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        dateFormat={"DD/MM/YYYY"}
+        dayLabels={spanishDayLabels}
+        monthLabels={spanishMonthLabels}
+      />
       <FormText>
-        {"Using ES labels and dateFormat='DD/M/YYYY'"}        
+        {"Using ES labels and dateFormat='DD/M/YYYY'"}
       </FormText>
     </FormGroup>
   )

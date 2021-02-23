@@ -1,11 +1,9 @@
-
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
 class DatePickerHeader extends React.Component {
-
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   displayingMinMonth() {
@@ -13,7 +11,10 @@ class DatePickerHeader extends React.Component {
 
     const displayDate = new Date(this.props.displayDate);
     const minDate = new Date(this.props.minDate);
-    return minDate.getFullYear() == displayDate.getFullYear() && minDate.getMonth() == displayDate.getMonth();
+    return (
+      minDate.getFullYear() == displayDate.getFullYear() &&
+      minDate.getMonth() == displayDate.getMonth()
+    );
   }
 
   displayingMaxMonth() {
@@ -21,7 +22,10 @@ class DatePickerHeader extends React.Component {
 
     const displayDate = new Date(this.props.displayDate);
     const maxDate = new Date(this.props.maxDate);
-    return maxDate.getFullYear() == displayDate.getFullYear() && maxDate.getMonth() == displayDate.getMonth();
+    return (
+      maxDate.getFullYear() == displayDate.getFullYear() &&
+      maxDate.getMonth() == displayDate.getMonth()
+    );
   }
 
   handleClickPrevious() {
@@ -41,36 +45,41 @@ class DatePickerHeader extends React.Component {
   render() {
     return (
       <div className="rdp-header text-center">
-        <div className= "text-muted float-left rdp-header-previous-wrapper" 
-             onClick  = {() => this.handleClickPrevious()}
-             style    = {{cursor: 'pointer'}}>
+        <div
+          className="text-muted float-left rdp-header-previous-wrapper"
+          onClick={() => this.handleClickPrevious()}
+          style={{ cursor: "pointer" }}
+        >
           {this.displayingMinMonth() ? null : this.props.previousButtonElement}
         </div>
-        <span>{this.props.monthLabels[this.props.displayDate.getMonth()]} {this.props.displayDate.getFullYear()}</span>
-        <div className= "text-muted float-right rdp-header-next-wrapper" 
-             onClick  = {() => this.handleClickNext()} 
-             style    = {{cursor: 'pointer'}}>
+        <span>
+          {this.props.monthLabels[this.props.displayDate.getMonth()]}{" "}
+          {this.props.displayDate.getFullYear()}
+        </span>
+        <div
+          className="text-muted float-right rdp-header-next-wrapper"
+          onClick={() => this.handleClickNext()}
+          style={{ cursor: "pointer" }}
+        >
           {this.displayingMaxMonth() ? null : this.props.nextButtonElement}
         </div>
       </div>
-    )
+    );
   }
 }
 
-DatePickerHeader.propTypes= {
+DatePickerHeader.propTypes = {
   displayDate: PropTypes.object.isRequired,
-  minDate    : PropTypes.string,
-  maxDate    : PropTypes.string,
-  onChange   : PropTypes.func.isRequired,
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
   monthLabels: PropTypes.array.isRequired,
   previousButtonElement: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
   ]).isRequired,
-  nextButtonElement: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]).isRequired,
-}
+  nextButtonElement: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    .isRequired,
+};
 
-export default DatePickerHeader
+export default DatePickerHeader;

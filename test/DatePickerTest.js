@@ -7,20 +7,18 @@ import ES6Promise from 'es6-promise'
 import UUID from "node-uuid"
 import DatePicker from '../src/index'
 
-
 ES6Promise.polyfill()
 
-const spanishDayLabels = ['Dom', 'Lu', 'Ma', 'Mx', 'Ju', 'Vi', 'Sab'];
+const spanishDayLabels = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
 const spanishMonthLabels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 const assertIsoStringsHaveSameDate = (IsoStringA, IsoStringB) => {
   const dateA = new Date(IsoStringA)
   const dateB = new Date(IsoStringB)
-  assert.equal(dateA.getMonth(), dateB.getMonth())
-  assert.equal(dateA.getDate(), dateB.getDate())
-  assert.equal(dateA.getFullYear(), dateB.getFullYear())
+  assert.strictEqual(dateA.getMonth(), dateB.getMonth())
+  assert.strictEqual(dateA.getDate(), dateB.getDate())
+  assert.strictEqual(dateA.getFullYear(), dateB.getFullYear())
 }
-
 
 describe('DatePicker', function () {
   this.timeout(30000)
@@ -58,11 +56,10 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const hiddenInputElement = document.getElementById(id)
-    assert.equal(hiddenInputElement.value, '')
-    assert.equal(hiddenInputElement.getAttribute('data-formattedvalue'), '')
+    assert.strictEqual(hiddenInputElement.value, '')
+    assert.strictEqual(hiddenInputElement.getAttribute('data-formattedvalue'), '')
     ReactDOM.unmountComponentAtNode(container)
   }))
-
 
   it("should render a date picker with a value.", co.wrap(function *(){
     const id = UUID.v4()
@@ -71,17 +68,24 @@ describe('DatePicker', function () {
       render() {
         return (
           <div>
-            <DatePicker id={id} value={value} />
+            <DatePicker
+              id={id}
+              value={value}
+              dayLabels={spanishDayLabels}
+              monthLabels={spanishMonthLabels}
+              dateFormat={"MM/DD/YYYY"} />
           </div>
         )
       }
     }
+
     yield new Promise(function(resolve, _reject){
       ReactDOM.render(<App />, container, resolve)
     })
+
     const hiddenInputElement = document.getElementById(id)
     assertIsoStringsHaveSameDate(hiddenInputElement.value, value)
-    assert.equal(hiddenInputElement.getAttribute('data-formattedvalue'), `${value.slice(5,7)}/${value.slice(8,10)}/${value.slice(0,4)}`)
+    assert.strictEqual(hiddenInputElement.getAttribute('data-formattedvalue'), `${value.slice(5,7)}/${value.slice(8,10)}/${value.slice(0,4)}`)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -96,19 +100,21 @@ describe('DatePicker', function () {
         )
       }
     }
+  
     yield new Promise(function(resolve, _reject){
       ReactDOM.render(<App />, container, resolve)
     })
+  
     const hiddenInputElement = document.getElementById(id)
     const inputElement = document.querySelector("input.form-control")
 
     TestUtils.Simulate.focus(inputElement)
     const dayElement = document.querySelector("table tbody tr:nth-child(2) td")
-    assert.equal(hiddenInputElement.value, '')
-    assert.equal(hiddenInputElement.getAttribute('data-formattedvalue'), "")
+    assert.strictEqual(hiddenInputElement.value, '')
+    assert.strictEqual(hiddenInputElement.getAttribute('data-formattedvalue'), "")
     TestUtils.Simulate.click(dayElement)
-    assert.notEqual(hiddenInputElement.value,'')
-    assert.notEqual(hiddenInputElement.getAttribute('data-formattedvalue'),"")
+    assert.notStrictEqual(hiddenInputElement.value,'')
+    assert.notStrictEqual(hiddenInputElement.getAttribute('data-formattedvalue'),"")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -135,8 +141,8 @@ describe('DatePicker', function () {
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
     const dayElement = document.querySelector("table tbody tr:nth-child(2) td")
-    assert.equal(value, null)
-    assert.equal(formattedValue, null)
+    assert.strictEqual(value, null)
+    assert.strictEqual(formattedValue, null)
     TestUtils.Simulate.click(dayElement)
     assert(typeof value === "string")
     assert(typeof formattedValue === "string")
@@ -161,7 +167,7 @@ describe('DatePicker', function () {
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
     const dayElement = document.querySelector("table tbody tr:nth-child(5) td:nth-of-type(2)")
-    assert.equal(dayElement.innerHTML, '29')
+    assert.strictEqual(dayElement.innerHTML, '29')
     TestUtils.Simulate.click(dayElement)
     ReactDOM.unmountComponentAtNode(container)
   }))
@@ -191,10 +197,10 @@ describe('DatePicker', function () {
     inputElement.value = "05/31/1980"
     TestUtils.Simulate.change(inputElement)
     const date = new Date(value)
-    assert.equal(date.getMonth(), 4)
-    assert.equal(date.getDate(), 31)
-    assert.equal(date.getFullYear(), 1980)
-    assert.equal(formattedValue, "05/31/1980")
+    assert.strictEqual(date.getMonth(), 4)
+    assert.strictEqual(date.getDate(), 31)
+    assert.strictEqual(date.getFullYear(), 1980)
+    assert.strictEqual(formattedValue, "05/31/1980")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -228,13 +234,13 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     
-    assert.notEqual(document.getElementById("clear-button-element"),null)
+    assert.notStrictEqual(document.getElementById("clear-button-element"),null)
     const inputElement = document.querySelector("input.form-control")    
     TestUtils.Simulate.focus(inputElement)
     const popover = document.querySelector(".popover")
-    assert.notEqual(popover.innerHTML.indexOf(spanishMonthLabel),-1)
-    assert.notEqual(document.getElementById("previous-button-element"),null)
-    assert.notEqual(document.getElementById("next-button-element"),null)
+    assert.notStrictEqual(popover.innerHTML.indexOf(spanishMonthLabel),-1)
+    assert.notStrictEqual(document.getElementById("previous-button-element"),null)
+    assert.notStrictEqual(document.getElementById("next-button-element"),null)
     
     ReactDOM.unmountComponentAtNode(container)
   }))
@@ -259,7 +265,7 @@ describe('DatePicker', function () {
     yield new Promise(function(resolve, _reject){
       ReactDOM.render(<App />, container, resolve)
     })
-    assert.equal(document.getElementById("clear-button-element"), null)
+    assert.strictEqual(document.getElementById("clear-button-element"), null)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -355,11 +361,11 @@ describe('DatePicker', function () {
     const clearButtonElement = document.querySelector("span.input-group-text")
     const dayElement = document.querySelector("table tbody tr:nth-child(2) td")
     TestUtils.Simulate.click(dayElement)
-    assert.notEqual(value,null)
-    assert.notEqual(formattedValue,null)
+    assert.notStrictEqual(value,null)
+    assert.notStrictEqual(formattedValue,null)
     TestUtils.Simulate.click(clearButtonElement)
-    assert.equal(value, null)
-    assert.equal(formattedValue, null)
+    assert.strictEqual(value, null)
+    assert.strictEqual(formattedValue, null)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -368,8 +374,6 @@ describe('DatePicker', function () {
     const id = UUID.v4()
     //let results = {};
     let value = `${new Date().toISOString().slice(0,10)}T12:00:00.000Z`
-
-
 
     class App extends React.Component {
       constructor(props) {
@@ -381,7 +385,7 @@ describe('DatePicker', function () {
       }
 
       focusHandler(e) {
-        assert.equal(e.target, document.querySelector("input[type=hidden]"))
+        assert.strictEqual(e.target, document.querySelector("input[type=hidden]"))
         assertIsoStringsHaveSameDate(e.target.value, value)
         this.setState({
           focused: true
@@ -389,7 +393,7 @@ describe('DatePicker', function () {
       }
 
       blurHandler(e) {
-        assert.equal(e.target, document.querySelector("input[type=hidden]"))
+        assert.strictEqual(e.target, document.querySelector("input[type=hidden]"))
         assertIsoStringsHaveSameDate(e.target.value, value)
         this.setState({
           focused: false
@@ -419,11 +423,11 @@ describe('DatePicker', function () {
     const blurringClickTarget = document.getElementById("blurringClickTarget")
     
     // It should start blurred
-    assert.notEqual(document.getElementById("blurred"),null)
+    assert.notStrictEqual(document.getElementById("blurred"),null)
 
     // Let's focus it
     TestUtils.Simulate.focus(inputElement)
-    assert.notEqual(document.getElementById("focused"),null)
+    assert.notStrictEqual(document.getElementById("focused"),null)
     
     // Let's blur it again
     TestUtils.Simulate.blur(inputElement)
@@ -437,9 +441,7 @@ describe('DatePicker', function () {
     //WHHHHHHHHHHHHHHHHHHYYYYYYYYYYY
     //WHHHHHHHHHHHHHHHHHHYYYYYYYYYYY
     //WHHHHHHHHHHHHHHHHHHYYYYYYYYYYY
-    //assert.notEqual(document.getElementById("blurred"),null)
-
-
+    //assert.notStrictEqual(document.getElementById("blurred"),null)
 
     ReactDOM.unmountComponentAtNode(container)
   }))
@@ -465,7 +467,7 @@ describe('DatePicker', function () {
     const inputElement = document.querySelector("input.form-control")
     inputElement.value = "05/31/1980 extra"
     TestUtils.Simulate.change(inputElement)
-    assert.equal(inputElement.value, "05/31/1980")
+    assert.strictEqual(inputElement.value, "05/31/1980")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -492,10 +494,10 @@ describe('DatePicker', function () {
     TestUtils.Simulate.change(inputElement)
     inputElement.value = "053"
     TestUtils.Simulate.change(inputElement)
-    assert.equal(inputElement.value, "05/3")
+    assert.strictEqual(inputElement.value, "05/3")
     inputElement.value = "05/311"
     TestUtils.Simulate.change(inputElement)
-    assert.equal(inputElement.value, "05/31/1")
+    assert.strictEqual(inputElement.value, "05/31/1")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -523,10 +525,10 @@ describe('DatePicker', function () {
     TestUtils.Simulate.change(inputElement)
     inputElement.value = "19800"
     TestUtils.Simulate.change(inputElement)
-    assert.equal(inputElement.value, "1980/0")
+    assert.strictEqual(inputElement.value, "1980/0")
     inputElement.value = "1980/053"
     TestUtils.Simulate.change(inputElement)
-    assert.equal(inputElement.value, "1980/05/3")
+    assert.strictEqual(inputElement.value, "1980/05/3")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -601,63 +603,62 @@ describe('DatePicker', function () {
     TestUtils.Simulate.change(mm_dd_yyyy_inputElement)
     TestUtils.Simulate.change(dd_mm_yyyy_inputElement)
     TestUtils.Simulate.change(yyyy_mm_dd_inputElement)
-    assert.equal(mm_dd_yyyy_inputElement.value, "05/31/1980")
-    assert.equal(dd_mm_yyyy_inputElement.value, "31/05/1980")
-    assert.equal(yyyy_mm_dd_inputElement.value, "1980/05/31")
+    assert.strictEqual(mm_dd_yyyy_inputElement.value, "05/31/1980")
+    assert.strictEqual(dd_mm_yyyy_inputElement.value, "31/05/1980")
+    assert.strictEqual(yyyy_mm_dd_inputElement.value, "1980/05/31")
     assertIsoStringsHaveSameDate("1980-05-31T12:00:00.000Z", values["MM/DD/YYYY"])
     assertIsoStringsHaveSameDate("1980-05-31T12:00:00.000Z", values["DD/MM/YYYY"])
     assertIsoStringsHaveSameDate("1980-05-31T12:00:00.000Z", values["YYYY/MM/DD"])
     assertIsoStringsHaveSameDate("1980-05-31T12:00:00.000Z", getValues["MM/DD/YYYY"])
     assertIsoStringsHaveSameDate("1980-05-31T12:00:00.000Z", getValues["DD/MM/YYYY"])
     assertIsoStringsHaveSameDate("1980-05-31T12:00:00.000Z", getValues["YYYY/MM/DD"])
-    assert.equal(formattedValues["MM/DD/YYYY"], "05/31/1980")
-    assert.equal(formattedValues["DD/MM/YYYY"], "31/05/1980")
-    assert.equal(formattedValues["YYYY/MM/DD"], "1980/05/31")
-    assert.equal(getFormattedValues["MM/DD/YYYY"], "05/31/1980")
-    assert.equal(getFormattedValues["DD/MM/YYYY"], "31/05/1980")
-    assert.equal(getFormattedValues["YYYY/MM/DD"], "1980/05/31")
+    assert.strictEqual(formattedValues["MM/DD/YYYY"], "05/31/1980")
+    assert.strictEqual(formattedValues["DD/MM/YYYY"], "31/05/1980")
+    assert.strictEqual(formattedValues["YYYY/MM/DD"], "1980/05/31")
+    assert.strictEqual(getFormattedValues["MM/DD/YYYY"], "05/31/1980")
+    assert.strictEqual(getFormattedValues["DD/MM/YYYY"], "31/05/1980")
+    assert.strictEqual(getFormattedValues["YYYY/MM/DD"], "1980/05/31")
     dd_mm_yyyy_inputElement.value = "15/04/2015"
     TestUtils.Simulate.change(dd_mm_yyyy_inputElement)
     TestUtils.Simulate.change(mm_dd_yyyy_inputElement)
     TestUtils.Simulate.change(yyyy_mm_dd_inputElement)
-    assert.equal(mm_dd_yyyy_inputElement.value, "04/15/2015")
-    assert.equal(dd_mm_yyyy_inputElement.value, "15/04/2015")
-    assert.equal(yyyy_mm_dd_inputElement.value, "2015/04/15")
+    assert.strictEqual(mm_dd_yyyy_inputElement.value, "04/15/2015")
+    assert.strictEqual(dd_mm_yyyy_inputElement.value, "15/04/2015")
+    assert.strictEqual(yyyy_mm_dd_inputElement.value, "2015/04/15")
     assertIsoStringsHaveSameDate("2015-04-15T12:00:00.000Z", values["MM/DD/YYYY"])
     assertIsoStringsHaveSameDate("2015-04-15T12:00:00.000Z", values["DD/MM/YYYY"])
     assertIsoStringsHaveSameDate("2015-04-15T12:00:00.000Z", values["YYYY/MM/DD"])
     assertIsoStringsHaveSameDate("2015-04-15T12:00:00.000Z", getValues["MM/DD/YYYY"])
     assertIsoStringsHaveSameDate("2015-04-15T12:00:00.000Z", getValues["DD/MM/YYYY"])
     assertIsoStringsHaveSameDate("2015-04-15T12:00:00.000Z", getValues["YYYY/MM/DD"])
-    assert.equal(formattedValues["MM/DD/YYYY"], "04/15/2015")
-    assert.equal(formattedValues["DD/MM/YYYY"], "15/04/2015")
-    assert.equal(formattedValues["YYYY/MM/DD"], "2015/04/15")
-    assert.equal(getFormattedValues["MM/DD/YYYY"], "04/15/2015")
-    assert.equal(getFormattedValues["DD/MM/YYYY"], "15/04/2015")
-    assert.equal(getFormattedValues["YYYY/MM/DD"], "2015/04/15")
+    assert.strictEqual(formattedValues["MM/DD/YYYY"], "04/15/2015")
+    assert.strictEqual(formattedValues["DD/MM/YYYY"], "15/04/2015")
+    assert.strictEqual(formattedValues["YYYY/MM/DD"], "2015/04/15")
+    assert.strictEqual(getFormattedValues["MM/DD/YYYY"], "04/15/2015")
+    assert.strictEqual(getFormattedValues["DD/MM/YYYY"], "15/04/2015")
+    assert.strictEqual(getFormattedValues["YYYY/MM/DD"], "2015/04/15")
     yyyy_mm_dd_inputElement.value = "1999/12/31"
     TestUtils.Simulate.change(yyyy_mm_dd_inputElement)
     TestUtils.Simulate.change(mm_dd_yyyy_inputElement)
     TestUtils.Simulate.change(dd_mm_yyyy_inputElement)
-    assert.equal(mm_dd_yyyy_inputElement.value, "12/31/1999")
-    assert.equal(dd_mm_yyyy_inputElement.value, "31/12/1999")
-    assert.equal(yyyy_mm_dd_inputElement.value, "1999/12/31")
+    assert.strictEqual(mm_dd_yyyy_inputElement.value, "12/31/1999")
+    assert.strictEqual(dd_mm_yyyy_inputElement.value, "31/12/1999")
+    assert.strictEqual(yyyy_mm_dd_inputElement.value, "1999/12/31")
     assertIsoStringsHaveSameDate("1999-12-31T12:00:00.000Z", values["MM/DD/YYYY"])
     assertIsoStringsHaveSameDate("1999-12-31T12:00:00.000Z", values["DD/MM/YYYY"])
     assertIsoStringsHaveSameDate("1999-12-31T12:00:00.000Z", values["YYYY/MM/DD"])
     assertIsoStringsHaveSameDate("1999-12-31T12:00:00.000Z", getValues["MM/DD/YYYY"])
     assertIsoStringsHaveSameDate("1999-12-31T12:00:00.000Z", getValues["DD/MM/YYYY"])
     assertIsoStringsHaveSameDate("1999-12-31T12:00:00.000Z", getValues["YYYY/MM/DD"])
-    assert.equal(formattedValues["MM/DD/YYYY"], "12/31/1999")
-    assert.equal(formattedValues["DD/MM/YYYY"], "31/12/1999")
-    assert.equal(formattedValues["YYYY/MM/DD"], "1999/12/31")
-    assert.equal(getFormattedValues["MM/DD/YYYY"], "12/31/1999")
-    assert.equal(getFormattedValues["DD/MM/YYYY"], "31/12/1999")
-    assert.equal(getFormattedValues["YYYY/MM/DD"], "1999/12/31")
+    assert.strictEqual(formattedValues["MM/DD/YYYY"], "12/31/1999")
+    assert.strictEqual(formattedValues["DD/MM/YYYY"], "31/12/1999")
+    assert.strictEqual(formattedValues["YYYY/MM/DD"], "1999/12/31")
+    assert.strictEqual(getFormattedValues["MM/DD/YYYY"], "12/31/1999")
+    assert.strictEqual(getFormattedValues["DD/MM/YYYY"], "31/12/1999")
+    assert.strictEqual(getFormattedValues["YYYY/MM/DD"], "1999/12/31")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
-  
   it("week should start on Monday.", co.wrap(function *(){
     const id = UUID.v4()
 
@@ -665,7 +666,12 @@ describe('DatePicker', function () {
       render() {
         return (
           <div>
-            <DatePicker id={id}  weekStartsOn={1}/>
+            <DatePicker
+              id={id}
+              weekStartsOn={1}
+              dayLabels={spanishDayLabels}
+              monthLabels={spanishMonthLabels}
+              />
           </div>
         )
       }
@@ -676,7 +682,7 @@ describe('DatePicker', function () {
     })
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
-    assert.equal(document.querySelector("table thead tr:first-child td small").innerHTML, "Mon")
+    assert.strictEqual(document.querySelector("table thead tr:first-child td small").innerHTML, "Lu")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -698,7 +704,7 @@ describe('DatePicker', function () {
     })
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
-    assert.notEqual(document.querySelector("#calendarContainer .rdp-popover"),null)
+    assert.notStrictEqual(document.querySelector("#calendarContainer .rdp-popover"),null)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -720,7 +726,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const inputElement = document.querySelector("input.form-control")
-    assert.notEqual(inputElement,document.activeElement)
+    assert.notStrictEqual(inputElement,document.activeElement)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -742,7 +748,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const inputElement = document.querySelector("input.form-control")
-    assert.equal(inputElement, document.activeElement)
+    assert.strictEqual(inputElement, document.activeElement)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -764,7 +770,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const inputElement = document.querySelector("input.form-control")
-    assert.equal(inputElement.disabled, true)
+    assert.strictEqual(inputElement.disabled, true)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -787,7 +793,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const inputElement = document.querySelector("input.form-control")
-    assert.equal(inputElement.disabled, true)
+    assert.strictEqual(inputElement.disabled, true)
     const clearButtonElement = document.querySelector("span.input-group-text")
     TestUtils.Simulate.click(clearButtonElement)
     assertIsoStringsHaveSameDate(value, originalValue)
@@ -831,9 +837,10 @@ describe('DatePicker', function () {
           if(dayElement.innerHTML === '') {
             return;
           }
+
           TestUtils.Simulate.click(dayElement)
           let date = new Date(hiddenInputElement.value)
-          assert.equal(date.getDay(), j)
+          assert.strictEqual(date.getDay(), j)
         }
       }
     }
@@ -846,6 +853,7 @@ describe('DatePicker', function () {
         checkMonthAndYear(date.toISOString())
       }
     }
+
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -854,7 +862,6 @@ describe('DatePicker', function () {
     const id = UUID.v4()
     let _value = null;
     let _formattedValue = null;
-
 
     class App extends React.Component {
       handleChange(newValue, newFormattedValue){
@@ -890,10 +897,11 @@ describe('DatePicker', function () {
           }
           TestUtils.Simulate.click(dayElement)
           let date = new Date(hiddenInputElement.value)
-          assert.equal(date.getDay(), j === 6 ? 0 : j + 1)
+          assert.strictEqual(date.getDay(), j === 6 ? 0 : j + 1)
         }
       }
     }
+
     const today = new Date()
     for(let year = today.getFullYear() - 2; year < today.getFullYear() + 2; year++) {
       for(let month = 0; month < 12; month++) {
@@ -905,7 +913,6 @@ describe('DatePicker', function () {
     }
     ReactDOM.unmountComponentAtNode(container)
   }))
-
 
   it("should set a default value", co.wrap(function *(){
     const id = UUID.v4()
@@ -930,72 +937,12 @@ describe('DatePicker', function () {
     })
     const hiddenInputElement = document.getElementById(id)
     assertIsoStringsHaveSameDate(hiddenInputElement.value, defaultValue)
-    assert.equal(value, null)
+    assert.strictEqual(value, null)
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.change(inputElement)
-    assert.notEqual(value,null)
+    assert.notStrictEqual(value,null)
     ReactDOM.unmountComponentAtNode(container)
   }))
-
-
-  // it("should error if value and default value are both set.", co.wrap(function *(){
-  //   const value = new Date().toISOString()
-
-
-
-  //   try {
-  //     yield new Promise(function(resolve, reject){
-  //       //try {
-
-  //         class App extends React.Component {
-  //           render() {
-  //             return (<div>
-  //               <DatePicker value={value} defaultValue={value} />
-  //             </div>)
-  //           }
-  //         }
-
-
-  //         ReactDOM.render(<App />, container, resolve)
-  //       /*} catch(e) {
-  //         console.log('**********1111111111111')
-  //         console.log(e.message)
-  //         assert(e.message.indexOf("Conflicting") !== -1)
-  //         reject(e)
-  //       }*/
-  //     })
-  //     console.log('**********2222222222222222')
-
-  //     //throw new Error("Value and default value should not be set simultaneously")
-  //   } catch (e) {
-  //     console.log('----------------------')
-  //     console.log('----------------------')
-  //     console.log('----------------------')
-  //     console.log(e.message)
-  //     assert(e.message.indexOf("Conflicting") !== -1)
-  //   }
-
-    
-
-  //   /*
-  //   try {
-  //     yield new Promise(function(resolve, _reject){
-  //       ReactDOM.render(<App />, container, resolve)
-  //     })
-  //     //throw new Error("Value and default value should not be set simultaneously")
-  //   } catch (e) {
-  //     console.log('----------------------')
-  //     console.log('----------------------')
-  //     console.log('----------------------')
-  //     console.log(e.message)
-  //     assert(e.message.indexOf("Conflicting") !== -1)
-  //   }
-  //   */
-
-
-  //   ReactDOM.unmountComponentAtNode(container)
-  // }))
-
 
   it('should render with today button element', co.wrap(function *(){
     const id = UUID.v4()
@@ -1017,7 +964,7 @@ describe('DatePicker', function () {
     const inputElement = document.querySelector('input.form-control')
     TestUtils.Simulate.focus(inputElement)
     const todayElement = document.querySelector('.u-today-button')
-    assert.equal(todayElement.innerText, 'Today is the day')
+    assert.strictEqual(todayElement.innerText, 'Today is the day')
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1040,8 +987,8 @@ describe('DatePicker', function () {
 
     const customElement = document.getElementById('test-btn')
 
-    assert.notEqual(customElement,null)
-    assert.equal(customElement.innerText, 'Test button')
+    assert.notStrictEqual(customElement,null)
+    assert.strictEqual(customElement.innerText, 'Test button')
     
     ReactDOM.unmountComponentAtNode(container)
 
@@ -1063,7 +1010,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const inputElement = document.querySelector(`input.${className}`)
-    assert.notEqual(inputElement,null)
+    assert.notStrictEqual(inputElement,null)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1082,7 +1029,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const inputElement = document.querySelector('input.form-control')
-    assert.equal(inputElement.style.backgroundColor, backgroundColor)
+    assert.strictEqual(inputElement.style.backgroundColor, backgroundColor)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1105,15 +1052,13 @@ describe('DatePicker', function () {
     const customGroup = document.getElementById('custom-input-group')
     const innerInput = document.getElementById(id)
     
-    assert.notEqual(customGroup,null)
-    assert.notEqual(innerInput,null)
+    assert.notStrictEqual(customGroup,null)
+    assert.notStrictEqual(innerInput,null)
     
     
     ReactDOM.unmountComponentAtNode(container)
 
   }))
-
-
 
   it("should disable dates outside of min and max dates.", co.wrap(function *(){
     const id = UUID.v4()
@@ -1151,13 +1096,13 @@ describe('DatePicker', function () {
     const tooEarly = document.querySelector("table tbody tr:nth-child(2) td")
     const justRight = document.querySelector("table tbody tr:nth-child(3) td")
     const tooLate = document.querySelector("table tbody tr:nth-child(4) td")
-    assert.equal(hiddenInputElement.value, originalValue)
+    assert.strictEqual(hiddenInputElement.value, originalValue)
     TestUtils.Simulate.click(tooEarly)
-    assert.equal(hiddenInputElement.value, originalValue)
+    assert.strictEqual(hiddenInputElement.value, originalValue)
     TestUtils.Simulate.click(justRight)
-    assert.equal(hiddenInputElement.value, justRightValue)
+    assert.strictEqual(hiddenInputElement.value, justRightValue)
     TestUtils.Simulate.click(tooLate)
-    assert.equal(hiddenInputElement.value, justRightValue)
+    assert.strictEqual(hiddenInputElement.value, justRightValue)
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1192,8 +1137,8 @@ describe('DatePicker', function () {
     TestUtils.Simulate.focus(inputElement)
     const prevButton = document.querySelector(".rdp-header-previous-wrapper")
     const nextButton = document.querySelector(".rdp-header-next-wrapper")
-    assert.equal(prevButton.innerHTML, '&lt;')
-    assert.equal(nextButton.innerHTML, '&gt;')
+    assert.strictEqual(prevButton.innerHTML, '&lt;')
+    assert.strictEqual(nextButton.innerHTML, '&gt;')
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1229,11 +1174,10 @@ describe('DatePicker', function () {
     TestUtils.Simulate.focus(inputElement)
     const prevButton = document.querySelector(".rdp-header-previous-wrapper")
     const nextButton = document.querySelector(".rdp-header-next-wrapper")
-    assert.equal(prevButton.innerHTML, '&lt;')
-    assert.equal(nextButton.innerHTML, '&gt;')
+    assert.strictEqual(prevButton.innerHTML, '&lt;')
+    assert.strictEqual(nextButton.innerHTML, '&gt;')
     ReactDOM.unmountComponentAtNode(container)
   }))
-
 
   it("should hide previousButtonElement if min date is set and being displayed.", co.wrap(function *(){
     const id = UUID.v4()
@@ -1266,11 +1210,10 @@ describe('DatePicker', function () {
     TestUtils.Simulate.focus(inputElement)
     const prevButton = document.querySelector(".rdp-header-previous-wrapper")
     const nextButton = document.querySelector(".rdp-header-next-wrapper")
-    assert.equal(prevButton.innerHTML, '')
-    assert.equal(nextButton.innerHTML, '&gt;')
+    assert.strictEqual(prevButton.innerHTML, '')
+    assert.strictEqual(nextButton.innerHTML, '&gt;')
     ReactDOM.unmountComponentAtNode(container)
   }))
-
 
   it("should hide nextButtonElement if max date is set and being displayed.", co.wrap(function *(){
     const id = UUID.v4()
@@ -1304,8 +1247,8 @@ describe('DatePicker', function () {
     TestUtils.Simulate.focus(inputElement)
     const prevButton = document.querySelector(".rdp-header-previous-wrapper")
     const nextButton = document.querySelector(".rdp-header-next-wrapper")
-    assert.equal(prevButton.innerHTML, '&lt;')
-    assert.equal(nextButton.innerHTML, '')
+    assert.strictEqual(prevButton.innerHTML, '&lt;')
+    assert.strictEqual(nextButton.innerHTML, '')
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1331,11 +1274,11 @@ describe('DatePicker', function () {
     TestUtils.Simulate.focus(withoutRoundedCorners_inputElement)
     const withoutRoundedCornersDayElement = document.querySelector("#rdp-input-group-" + withoutRoundedCorners + " table tbody tr:nth-child(2) td")
     TestUtils.Simulate.click(withoutRoundedCornersDayElement)
-    assert.equal(withoutRoundedCornersDayElement.style.borderRadius, '0px')
+    assert.strictEqual(withoutRoundedCornersDayElement.style.borderRadius, '0px')
     TestUtils.Simulate.focus(withRoundedCorners_inputElement)
     const withRoundedCornersDayElement = document.querySelector("#rdp-input-group-" + withRoundedCorners + " table tbody tr:nth-child(2) td")
     TestUtils.Simulate.click(withRoundedCornersDayElement)
-    assert.equal(withRoundedCornersDayElement.style.borderRadius, '5px')
+    assert.strictEqual(withRoundedCornersDayElement.style.borderRadius, '5px')
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1346,7 +1289,12 @@ describe('DatePicker', function () {
     class App extends React.Component {
       render() {
         return (<div>
-          <DatePicker id={id} weekStartsOn={4} />
+          <DatePicker
+            id={id}
+            weekStartsOn={4}
+            dayLabels={spanishDayLabels}
+            monthLabels={spanishMonthLabels}
+            />
         </div>)
       }
     }
@@ -1356,7 +1304,7 @@ describe('DatePicker', function () {
     })
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
-    assert.equal(document.querySelector("table thead tr:first-child td small").innerHTML, "Thu")
+    assert.strictEqual(document.querySelector("table thead tr:first-child td small").innerHTML, "Ju")
     ReactDOM.unmountComponentAtNode(container)
   }))
 
@@ -1366,7 +1314,12 @@ describe('DatePicker', function () {
     class App extends React.Component {
       render() {
         return (<div>
-          <DatePicker id={id} weekStartsOn={6} />
+          <DatePicker
+            id={id}
+            weekStartsOn={6}
+            dayLabels={spanishDayLabels}
+            monthLabels={spanishMonthLabels}
+            />
         </div>)
       }
     }
@@ -1376,10 +1329,9 @@ describe('DatePicker', function () {
     })
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
-    assert.equal(document.querySelector("table thead tr:first-child td small").innerHTML, "Sat")
+    assert.strictEqual(document.querySelector("table thead tr:first-child td small").innerHTML, "Sa")
     ReactDOM.unmountComponentAtNode(container)
   }))
-
 
   it("should allow for a string to determine calendar placement", co.wrap(function *(){
     const id = UUID.v4()
@@ -1398,10 +1350,9 @@ describe('DatePicker', function () {
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
     const popover = document.querySelector(".rdp-popover.right")
-    assert.notEqual(popover,null)
+    assert.notStrictEqual(popover,null)
     ReactDOM.unmountComponentAtNode(container)
   }))
-
 
   it("should allow for a function to determine calendar placement", co.wrap(function *(){
     const id = UUID.v4()
@@ -1424,7 +1375,7 @@ describe('DatePicker', function () {
     const inputElement = document.querySelector("input.form-control")
     TestUtils.Simulate.focus(inputElement)
     const popover = document.querySelector(".rdp-popover.top")
-    assert.notEqual(popover,null)
+    assert.notStrictEqual(popover,null)
     ReactDOM.unmountComponentAtNode(container)
   }))
   
@@ -1443,7 +1394,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const hiddenInputElement = document.getElementById(`rdp-input-group-${id}`)
-    assert.equal(hiddenInputElement.classList.contains('is-invalid'), false)
+    assert.strictEqual(hiddenInputElement.classList.contains('is-invalid'), false)
     ReactDOM.unmountComponentAtNode(container)
   }))
   
@@ -1462,7 +1413,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const hiddenInputElement = document.getElementById(`rdp-input-group-${id}`)
-    assert.equal(hiddenInputElement.classList.contains('is-invalid'), true)
+    assert.strictEqual(hiddenInputElement.classList.contains('is-invalid'), true)
     ReactDOM.unmountComponentAtNode(container)
   }))
   
@@ -1481,7 +1432,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const hiddenInputElement = document.getElementById(`rdp-input-group-${id}`)
-    assert.equal(hiddenInputElement.classList.contains('is-valid'), false)
+    assert.strictEqual(hiddenInputElement.classList.contains('is-valid'), false)
     ReactDOM.unmountComponentAtNode(container)
   }))
   
@@ -1500,8 +1451,7 @@ describe('DatePicker', function () {
       ReactDOM.render(<App />, container, resolve)
     })
     const hiddenInputElement = document.getElementById(`rdp-input-group-${id}`)
-    assert.equal(hiddenInputElement.classList.contains('is-valid'), true)
+    assert.strictEqual(hiddenInputElement.classList.contains('is-valid'), true)
     ReactDOM.unmountComponentAtNode(container)
   }))
-  
 })

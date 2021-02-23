@@ -7,7 +7,7 @@ import nodePolyfills from 'rollup-plugin-node-polyfills'
 const NODE_ENV = 'development'
 
 export default {
-  input: 'test/test_01.js',
+  input: 'test/DatePickerTest.js',
   output: {
     file: 'test/bundle.js',
     format: 'umd',

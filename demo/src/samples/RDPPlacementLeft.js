@@ -13,15 +13,15 @@ const RDPPlacementLeft = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Left"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {12}
-        value        = {value}
-        onChange     = {(v, _f) => setValue(v)}
-        calendarPlacement    = "left"
+        name={inputName}
+        instanceCount={12}
+        value={value}
+        onChange={(v, _f) => setValue(v)}
+        calendarPlacement="left"
       />
       <FormText>
         {"calendarPlacement='left'"}

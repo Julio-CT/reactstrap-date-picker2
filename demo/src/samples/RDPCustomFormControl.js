@@ -14,24 +14,24 @@ const RDPCustomFormControl = () => {
   return (
     <FormGroup>
       <Label for={inputName}
-             className="valium-reactstrap-label">
+        className="valium-reactstrap-label">
         {"Custom Form Control"}
       </Label>
       <DatePicker
-        name         = {inputName}
-        instanceCount= {1}
-        value        = {value}
-        onChange     = {(v, f) => {setValue(v); setFmtValue(f);}}
-        
+        name={inputName}
+        instanceCount={1}
+        value={value}
+        onChange={(v, f) => { setValue(v); setFmtValue(f); }}
+
         customControl={
-          <input className="form-control cusom-form-control" style={{border: '5px solid aliceblue', borderRadius: '10px'}}>
+          <input className="form-control cusom-form-control" style={{ border: '5px solid aliceblue', borderRadius: '10px' }}>
           </input>
-        } 
+        }
       />
       <FormText>
-        {value 
-         ? `Selected date is: ${value} (formatted: ${fmtValue})`
-         : 'No date selected'}
+        {value
+          ? `Selected date is: ${value} (formatted: ${fmtValue})`
+          : 'No date selected'}
       </FormText>
     </FormGroup>
   )
