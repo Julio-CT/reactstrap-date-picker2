@@ -509,6 +509,7 @@ class DatePicker extends React.Component {
         maxDate={this.props.maxDate}
         roundedCorners={this.props.roundedCorners}
         showWeeks={this.props.showWeeks}
+        disabledWeekDays={this.props.disabledWeekDays}
       />
     );
 
@@ -689,6 +690,7 @@ DatePicker.propTypes = {
   invalid: PropTypes.bool,
   customInputGroup: PropTypes.object,
   inputRef: propRef,
+  disabledWeekDays: PropTypes.array,
 };
 
 const defaultLanguage = () => {
@@ -774,6 +776,7 @@ DatePicker.defaultProps = {
   showWeeks: false,
   roundedCorners: false,
   noValidate: false,
+  disabledWeekDays: [],
 };
 
 export default DatePicker;

@@ -78,8 +78,8 @@ class DatePickerCalendar extends React.Component {
     let day = 1;
     for (let i = 0; i < 9; i++) {
       const week = [];
-      for (let j = 0; j <= 6; j++) {
-        if (day <= monthLength && (i > 0 || j >= startingDay)) {
+      for (let weekDay = 0; weekDay <= 6; weekDay++) {
+        if (day <= monthLength && (i > 0 || weekDay >= startingDay)) {
           let className = null;
           const date = new Date(year, month, day, 12, 0, 0, 0).toISOString();
           const beforeMinDate =
@@ -93,7 +93,7 @@ class DatePickerCalendar extends React.Component {
             borderRadius: this.props.roundedCorners ? 5 : 0,
           };
 
-          if (beforeMinDate || afterMinDate) {
+          if (beforeMinDate || afterMinDate || this.props.disabledWeekDays.includes(weekDay)) {
             className = "text-muted";
             clickHandler = null;
             style.cursor = "default";
@@ -105,7 +105,7 @@ class DatePickerCalendar extends React.Component {
 
           week.push(
             <td
-              key={j}
+              key={weekDay}
               data-day={day}
               onClick={clickHandler}
               style={style}
@@ -114,9 +114,10 @@ class DatePickerCalendar extends React.Component {
               {day}
             </td>
           );
+
           day++;
         } else {
-          week.push(<td key={j} />);
+          week.push(<td key={weekDay} />);
         }
       }
 
@@ -208,6 +209,7 @@ DatePickerCalendar.propTypes = {
   todayButtonLabel: PropTypes.string,
   roundedCorners: PropTypes.bool,
   showWeeks: PropTypes.bool,
+  disabledWeekDays: PropTypes.array,
 };
 
 export default DatePickerCalendar;
