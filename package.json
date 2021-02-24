@@ -1,25 +1,36 @@
 {
   "name": "reactstrap-date-picker2",
-  "version": "2.0.0",
-  "description": "DatePicker for Reactstrap",
-  "author": "JulioCT",
+  "version": "1.0.1",
+  "description": "DatePicker for Reactstrap with extras",
+  "main": "lib/index.js",
   "contributors": [
-    "JulioCT"
+    "julio-ct"
   ],
-  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Julio-CT/reactstrap-date-picker2.git"
+    "url": "git+https://github.com/Julio-CT/reactstrap-date-picker2.git"
   },
+  "keywords": [
+    "datepicker",
+    "reactstrap",
+    "spanish",
+    "disabledays",
+    "days",
+    "date",
+    "picker",
+    "react",
+    "js"
+  ],
+  "author": "Julio-CT",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Julio-CT/reactstrap-date-picker2/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/Julio-CT/reactstrap-date-picker2#readme",
   "files": [
     "lib",
     "dist"
   ],
-  "main": "lib/index.js",
   "cjs": "dist/reactstrap-date-picker.cjs.js",
   "browser": "dist/reactstrap-date-picker.umd.js",
   "module": "dist/reactstrap-date-picker.es.js",
@@ -33,15 +44,8 @@
     "prepare": "npm run lint && npm run test && npm run lib && npm run dist",
     "demo": "rm -rf demo/dist && mkdir demo/dist && rollup -c rollup.demo.js -w",
     "format": "prettier --write src",
-    "lint": "eslint --fix src -c test.eslintrc.js"
+    "lint": "eslint --fix src -c .eslintrc.js"
   },
-  "keywords": [
-    "js",
-    "react",
-    "reactstrap",
-    "date",
-    "picker"
-  ],
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
@@ -55,13 +59,18 @@
     "bootstrap": "^4.5.2",
     "co": "^4.6.0",
     "es6-promise": "^4.2.8",
-    "eslint": "^7.6.0",
-    "eslint-config-airbnb-typescript-prettier": "^4.1.0",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "karma": "^5.1.1",
     "karma-chrome-launcher": "^3.1.0",

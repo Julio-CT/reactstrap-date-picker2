@@ -1,14 +1,13 @@
 ![reactstrap-date-picker logo](https://reactstrap-date-picker.afialapis.com/assets/images/logo/reactstrap_date_picker_name.png)
 
-[![NPM Version](https://badge.fury.io/js/reactstrap-date-picker.svg)](https://www.npmjs.com/package/reactstrap-date-picker)
-[![Dependency Status](https://david-dm.org/afialapis/reactstrap-date-picker.svg)](https://david-dm.org/afialapis/reactstrap-date-picker)
-[![NPM Downloads](https://img.shields.io/npm/dm/reactstrap-date-picker.svg?style=flat)](https://www.npmjs.com/package/reactstrap-date-picker)
+[![NPM Version](https://badge.fury.io/js/reactstrap-date-picker2.svg)](https://www.npmjs.com/package/reactstrap-date-picker2)
+[![NPM Downloads](https://img.shields.io/npm/dm/reactstrap-date-picker2.svg?style=flat)](https://www.npmjs.com/package/reactstrap-date-picker2)
+[![CodeQL](https://github.com/Julio-CT/reactstrap-date-picker2/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Julio-CT/reactstrap-date-picker2/actions/workflows/codeql-analysis.yml)
+[![Node.js CI](https://github.com/Julio-CT/reactstrap-date-picker2/actions/workflows/node.js.yml/badge.svg)](https://github.com/Julio-CT/reactstrap-date-picker2/actions/workflows/node.js.yml)
 
 A Reactstrap based, zero dependencies, date picker.
 
 Based on [react-bootstrap-date-picker](https://github.com/pushtell/react-bootstrap-date-picker/).
-
-Demo and docs at [reactstrap-date-picker](https://reactstrap-date-picker.afialapis.com/).
 
 # Table of Contents
 
@@ -24,7 +23,7 @@ Demo and docs at [reactstrap-date-picker](https://reactstrap-date-picker.afialap
 `reactstrap-date-picker` is compatible with React 0.14.x, 0.15.x and 0.16.x.
 
 ```bash
-npm install reactstrap-date-picker
+npm install reactstrap-date-picker2
 ```
 
 # Usage
@@ -76,7 +75,7 @@ class App extends React.Component {
 
 ## `<DatePicker />`
 
-`reactstrap-date-picker`'s public component.
+`reactstrap-date-picker2`'s public component.
 
 ### Date properties
 
@@ -127,6 +126,14 @@ ISO date string to set the highest allowable date value.
   * Optional
   * Type: `string`
   * Example: `"2016-05-19T12:00:00.000Z"`
+
+#### `disabledWeekDays`
+
+The calenday will show specified weekdays a disabled. 0 = Sunday, 1 = Monday, etc.
+
+  * Optional
+  * Type: `array`
+  * Example: `[0, 2, 4, 6]`
 
 
 ### Events
@@ -430,7 +437,7 @@ npm run demo
 
 ```
 
-And visit [http://localhost:3002](http://localhost:3002) on your browser
+And visit [http://localhost:3010](http://localhost:3010) on your browser
 
 
 ## Running Tests

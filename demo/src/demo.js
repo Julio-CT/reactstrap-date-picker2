@@ -15,6 +15,8 @@ import RDPPlacementLeft from './samples/RDPPlacementLeft'
 import RDPPlacementRight from './samples/RDPPlacementRight'
 import RDPCustomInputGroup from './samples/RDPCustomInputGroup'
 import RDPCustomFormControl from './samples/RDPCustomFormControl'
+import RDPDisableWeekends from './samples/RDPDisableWeekends'
+import RDPDisableRandomDays from './samples/RDPDisableRandomDays'
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './demo.scss'
@@ -88,7 +90,7 @@ const Demo = () => {
         <Row>
           <Col xs="12" md="6" lg={{ size: 6, offset: 3 }}>
             <h1>
-              Reactstrap Date Picker demo
+              Reactstrap Date Picker 2 Demo
             </h1>
           </Col>          
         </Row>
@@ -107,7 +109,9 @@ const Demo = () => {
 
         <Title title="Custom components"/>
         <Pair one={RDPCustomInputGroup} two={RDPCustomFormControl}/>
-        
+
+        <Title title="Disable days"/>
+        <Pair one={RDPDisableWeekends} two={RDPDisableRandomDays}/>
         
       </Container>
     </div>
