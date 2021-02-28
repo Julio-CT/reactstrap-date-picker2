@@ -7,7 +7,10 @@
 
 A Reactstrap based, zero dependencies, date picker.
 
-Based on [react-bootstrap-date-picker](https://github.com/pushtell/react-bootstrap-date-picker/).
+Based on [react-bootstrap-date-picker](https://github.com/pushtell/react-bootstrap-date-picker/) but adding some quite handy extras:
+* possibility to disable days in a week
+* typescript types for easier integration
+* spanish language support
 
 # Table of Contents
 
@@ -20,7 +23,7 @@ Based on [react-bootstrap-date-picker](https://github.com/pushtell/react-bootstr
 
 # Installation
 
-`reactstrap-date-picker` is compatible with React 0.14.x, 0.15.x and 0.16.x.
+`reactstrap-date-picker2` is compatible with React 0.14.x, 0.15.x and 0.16.x.
 
 ```bash
 npm install reactstrap-date-picker2
@@ -29,8 +32,8 @@ npm install reactstrap-date-picker2
 # Usage
 
 ```js
-import React from 'react
-import {FormGroup, Label, FormText} from 'reactstrap
+import React from 'react'
+import {FormGroup, Label, FormText} from 'reactstrap'
 var DatePicker = require("reactstrap-date-picker");
 
 class App extends React.Component {
@@ -59,9 +62,9 @@ class App extends React.Component {
     return (
       <FormGroup>
         <Label>My Date Picker</Label>
-        <DatePicker id      = "example-datepicker" 
-                    value   = {this.state.value} 
-                    onChange= {(v,f) => this.handleChange(v, f)} />
+        <DatePicker id = "example-datepicker" 
+                    value = {this.state.value} 
+                    onChange = {(v,f) => this.handleChange(v, f)} />
         <FormText>Help</FormText>
       </FormGroup>
     )
@@ -368,10 +371,10 @@ Label for the today-button
 
 # Deeper customizing
 
-You can also customize `reactstrap-date-picker` trough element's `id` or `class` attributes.
+You can also customize `reactstrap-date-picker2` trough element's `id` or `class` attributes.
 
-`reactstrap-date-picker` renders several elements, all contained within a [reactstrap InputGroup](https://reactstrap.github.io/components/form/).
-Such elements will have its unique `id` attribute, plus `reactstrap-date-picker` custom `class` names (prefixed by `rdp-*`).
+`reactstrap-date-picker2` renders several elements, all contained within a [reactstrap InputGroup](https://reactstrap.github.io/components/form/).
+Such elements will have its unique `id` attribute, plus `reactstrap-date-picker2` custom `class` names (prefixed by `rdp-*`).
 
 The rendered DOM structure seems like this:
 
@@ -413,13 +416,13 @@ This `SUFFIX` is:
 
   · if `props.name` is not passed, then use `props.id`
 
-  · if `props.id` is not passed, then take a global counter of active `reactstrap-date-picker` instances
+  · if `props.id` is not passed, then take a global counter of active `reactstrap-date-picker2` instances
 
 So, the idea is, depending on your needs:
 
-  · if you don't need handle `id`s at all, `reactstrap-date-picker` will render unique `id` with no problem
+  · if you don't need handle `id`s at all, `reactstrap-date-picker2` will render unique `id` with no problem
 
-  · if you need a basic `id` usage, for example accessing the `reactstrap-date-picker`'s value from the DOM, then 
+  · if you need a basic `id` usage, for example accessing the `reactstrap-date-picker2`'s value from the DOM, then 
     you just have to pass `props.id` and get the value from the element with that `id`
 
   · if you will perform more complex operations, then use `props.name` or `props.id`, and pay attention to the

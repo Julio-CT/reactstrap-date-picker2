@@ -1,6 +1,6 @@
 {
   "name": "reactstrap-date-picker2",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "DatePicker for Reactstrap with extras",
   "main": "lib/index.js",
   "types": "dist/index.d.ts",
