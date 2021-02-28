@@ -1,8 +1,9 @@
 {
   "name": "reactstrap-date-picker2",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "DatePicker for Reactstrap with extras",
   "main": "lib/index.js",
+  "types": "dist/index.d.ts",
   "contributors": [
     "julio-ct"
   ],
@@ -40,7 +41,8 @@
     "clean-dist": "rm -rf dist && mkdir dist",
     "test": "npm run clean-test && rollup -c rollup.test.js && karma start --singleRun",
     "lib": "npm run clean-lib && babel src -d lib",
-    "dist": "npm run clean-dist && rollup -c",
+    "dist": "npm run clean-dist && rollup -c && cp src/*.d.ts dist/",
+    "transpile": "tsc",
     "prepare": "npm run lint && npm run test && npm run lib && npm run dist",
     "demo": "rm -rf demo/dist && mkdir demo/dist && rollup -c rollup.demo.js -w",
     "format": "prettier --write src",
@@ -92,7 +94,8 @@
     "rollup-plugin-serve": "^1.0.3",
     "rollup-plugin-terser": "^7.0.0",
     "ts-jest": "^26.4.4",
-    "tslint": "^6.1.2"
+    "tslint": "^6.1.2",
+    "typescript": "^4.2.2"
   },
   "peerDependencies": {
     "react": ">=16.13.1",
